@@ -7,6 +7,18 @@ class Department:
         self.name = name
         self.about = about
     
+    def create(self):
+        with self.connection as c:
+            cursor = c.cursor()
+            cursor.execute("""create table
+                grow_department (
+                id INT(11) NOT NULL AUTO_INCREMENT,
+                name CHAR(30) NOT NULL,
+                about TEXT,
+                PRIMARY KEY(id)
+                )""")
+            c.commit()
+    
     def save(self):
         with self.connection as con:
             cursor = con.cursor()
@@ -14,10 +26,7 @@ class Department:
                 values (%s, %s)""", (self.name,
                                      self.about) )
             con.commit()
-            cursor.execute("""insert into grow_employee (firstName, lastName, about, email, phone_number, department_id) values ("David", "Pranker", "Killer, iron man", "killer@supermail.com", "+9023523214", 1)""")
-            con.commit()
 
 
-department = Department("Rescue group", "Group to rescue anyone")
+department = Department("Rapid reaction group", "Group of fast reaction to kill or rescue anyone")
 department.save()
-

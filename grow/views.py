@@ -4,6 +4,7 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from .models import Department
+from .models import Employee
 
 # Create your views here..
 
@@ -13,15 +14,15 @@ def index(request):
     content = {
         'departments': department
     }
-    for a in department:
-        print(a)
     return render(request, 'departments.html', content)
 
 
 def department(request, id):
     department = Department.objects.get(id=int(id))
+    employers = Employee.objects.filter(department_id=int(id))
+    
     content = {
-        'department' : department
+        'department' : department,
+        'employers': employers
     }
     return render(request, 'single.html', content)
-    pass

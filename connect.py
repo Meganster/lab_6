@@ -3,7 +3,7 @@ from MySQLdb.constants import FIELD_TYPE
 
 db = MySQLdb.connect(host="localhost", db="ask_db", read_default_file="~/.my.cnf")
 cursor=db.cursor()
-cursor.execute("select article_id, author_id, pubdate, likes from articles")
+cursor.execute("select * from department")
 result = cursor.fetchall()
 
 for x in result:
